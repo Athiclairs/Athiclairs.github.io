@@ -1,1 +1,47 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        /* Add your CSS styles here */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heading</h1>
+    
+    <!-- Toggle Heading -->
+    <button onclick="toggleHeading()">Toggle Heading</button>
+    
+    <!-- Toggle List -->
+    <button onclick="toggleList()">Toggle List</button>
+    <ul id="list" class="hidden">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+    
+    <!-- Embed a File -->
+    <a href="path/to/your/file.pdf" target="_blank">Embed a File</a>
+    
+    <!-- Embed a Link -->
+    <a href="https://example.com" target="_blank">Embed a Link</a>
+    
+    <script>
+        // JavaScript functions to toggle heading and list
+        function toggleHeading() {
+            var heading = document.querySelector('h1');
+            heading.classList.toggle('hidden');
+        }
+        
+        function toggleList() {
+            var list = document.getElementById('list');
+            list.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html> 
