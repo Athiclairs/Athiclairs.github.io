@@ -1,9 +1,9 @@
 Today I'm gonna show you how to make a website with __[Notion](https://notion.so/)__ and its cool features
-## **__[Notion](https://notion.so/)__ Website: From Brainstorm to Boom in Minutes!**
+## **[Notion](https://notion.so/) Website: From Brainstorm to Boom in Minutes!**
 
 Ever had a killer idea for a website but felt intimidated by coding or expensive software? Well, fret no more! __[Notion](https://notion.so/)__ lets you turn your brainwaves into a website with surprising ease. Here's how to do it in just a few clicks, with no fancy tech jargon required.
 
-**1.  Sign up for the __[Notion](https://notion.so/)__ party:** It all starts with a free __[Notion](https://notion.so/)__ account. Think of it as your digital HQ – a place to organize your thoughts and bring your website to life.
+**1.  Sign up for the [Notion](https://notion.so/) party:** It all starts with a free __[Notion](https://notion.so/)__ account. Think of it as your digital HQ – a place to organize your thoughts and bring your website to life.
 
 **2.  Blank canvas or pre-made magic?** You have two choices to kick things off:
 
@@ -28,7 +28,7 @@ Here's the cool part:
 - **Bend it to your will:** Unlike some stiff note-taking apps, __[Notion](https://notion.so/)__ is all about flexibility. You can build your workspace with "blocks" that can be text, images, videos, or even other databases! Imagine dragging and dropping these to create the perfect layout for your notes, project plans, or anything you can dream up.
 - **Teamwork makes the dream work:** Need to collaborate with others? __[Notion](https://notion.so/)__ lets you share your workspace with friends or colleagues and define who can edit what. So, you can brainstorm ideas together, track project progress, and keep everyone on the same page.
 - **Templates galore:** Feeling uninspired? Don't sweat it! __[Notion](https://notion.so/)__ has a library full of pre-built templates for things like project management, meeting agendas, habit trackers, and more. Plus, you can create custom templates to fit your specific needs.
-- **Got your phone? You've got __[Notion](https://notion.so/)__:** __[Notion](https://notion.so/)__ has mobile apps for iPhone and Android, so you can access and edit your info on the go. Whether you're jotting down ideas at a coffee shop or checking your to-do list on the train, __[Notion](https://notion.so/)__ is always there for you.
+- **Got your phone? You've got [Notion](https://notion.so/):** __[Notion](https://notion.so/)__ has mobile apps for iPhone and Android, so you can access and edit your info on the go. Whether you're jotting down ideas at a coffee shop or checking your to-do list on the train, __[Notion](https://notion.so/)__ is always there for you.
 
 That's not all! Here are some other cool features that make __[Notion](https://notion.so/)__ a powerhouse:
 
