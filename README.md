@@ -121,3 +121,11 @@ class Geometry(Scene):
         )
         self.play(Write(point_K), Write(label_K))
         self.wait(5)
+### Result
+## My Video Example
+
+<video width="600" controls>
+  <source src="Geometry.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
