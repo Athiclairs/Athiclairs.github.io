@@ -124,7 +124,7 @@ class Geometry(Scene):
 ```
 ## Result
 
-<video width="900" controls>
+<video width="1000" controls>
   <source src="Geometry.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
