@@ -10,7 +10,6 @@ Here are some examples of my code:
 
 ### Example Code 1: Hello World in Python
 ```
-
 from manim import *
 
 class Geometry(Scene):
