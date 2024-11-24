@@ -1,38 +1,122 @@
-Today I'm gonna show you how to make a website with [Notion](https://notion.so/) and its cool features
-## **[Notion](https://notion.so/) Website: From Brainstorm to Boom in Minutes!**
+# My GitHub Page
 
-Ever had a killer idea for a website but felt intimidated by coding or expensive software? Well, fret no more! [Notion](https://notion.so/) lets you turn your brainwaves into a website with surprising ease. Here's how to do it in just a few clicks, with no fancy tech jargon required.
+Welcome to my GitHub page! This page is a showcase of my projects and skills.
 
-**1.  Sign up for the [Notion](https://notion.so/) party:** It all starts with a free [Notion](https://notion.so/) account. Think of it as your digital HQ – a place to organize your thoughts and bring your website to life.
+---
 
-**2.  Blank canvas or pre-made magic?** You have two choices to kick things off:
+## Code Section
 
-- **Start from scratch:** Unleash your inner artist! Choose "New page" and let your creativity flow.
-- **Template time-saver:** Feeling a little blank? [Notion](https://notion.so/) has website templates waiting to be your website's best friend. Browse the options and pick one that fits your vibe, whether it's a portfolio for your amazing photography or a landing page for your new business idea.
+Here are some examples of my code:
 
-**3.  Building with blocks like a digital Picasso:** [Notion](https://notion.so/) uses "blocks" for everything on your website – text, pictures, videos, you get the idea. Just drag and drop these blocks around like colorful Legos to create your website's layout. It's surprisingly intuitive and fun!
+### Example Code 1: Hello World in Python
+```from manim import *
 
-**4.  Spice it up (optional):** While [Notion](https://notion.so/) keeps things clean and simple, you can also customize the look and feel of your website. Play around with fonts, colors, and backgrounds to make it truly your own.
+class Geometry(Scene):
+    def construct(self):
+        const = 2.5
+        R = 2.5
+        A = LEFT * R
+        B = RIGHT * R
+        O = ORIGIN
+        C = UP * R
+        E = UP * (R/3**0.5)
 
-**5.  Website, meet the world!** Once your website is looking sharp, click the "Share" button in the top right corner. See that "Share to web" option? Toggle that on, and bam! Your website is live and ready for its close-up. Now you can grab the unique web address and share it with everyone you know (or the whole world, if that's your thing!).
+        semicircle = Arc(radius=R, start_angle=PI, angle=-PI, color=BLUE)
+        diameter = Line(A, B, color=WHITE)
+        radius_OC = Line(O, C, color=WHITE)
 
-**Bonus Tip!** [Notion](https://notion.so/) updates your website automatically whenever you make changes. So, your visitors will always see the latest and greatest version.
+        points = {
+            'A': A, 'B': B, 'O': O, 'C': C, 'E': E
+        }
+        point_objects = {
+            key: Dot(value, color=WHITE, radius=R/40).set_z_index(3)
+            for key, value in points.items()
+        }
 
-**Keep in mind:** This gets you a basic website up and running. If you crave fancy features like a custom domain name or an online store, you might need to explore other website building platforms. But for a quick and easy way to get your message online, [Notion](https://notion.so/) is a fantastic option!
-# Features
-Imagine [Notion](https://notion.so/) as your digital Swiss Army knife for getting things done. It's not just a note-taking app, it's a whole toolkit for organizing your life and projects.
+        labels = {
+            key: MathTex(key, font_size=16*R).next_to(point_objects[key], 
+                        UP if key in ['C', 'D'] else
+                        DOWN if key == 'O' else
+                        LEFT if key in ['A', 'E'] else RIGHT
+                        ).set_z_index(3)
+            for key in points.keys()
+        }
 
-Here's the cool part:
+        m = (E[1] - A[1]) / (E[0] - A[0])
+        b = A[1] - m * A[0]
+        
+        a = 1 + m**2
+        b_coeff = 2 * m * b
+        c = b**2 - R**2
+        discriminant = b_coeff**2 - 4 * a * c
 
-- **Tame the chaos:** Forget scattered notes and overflowing to-do lists. [Notion](https://notion.so/) lets you create wiki-style pages, databases, and to-do lists, all in one place. Think of it as a central hub for everything swirling around in your head.
-- **Bend it to your will:** Unlike some stiff note-taking apps, [Notion](https://notion.so/) is all about flexibility. You can build your workspace with "blocks" that can be text, images, videos, or even other databases! Imagine dragging and dropping these to create the perfect layout for your notes, project plans, or anything you can dream up.
-- **Teamwork makes the dream work:** Need to collaborate with others? [Notion](https://notion.so/) lets you share your workspace with friends or colleagues and define who can edit what. So, you can brainstorm ideas together, track project progress, and keep everyone on the same page.
-- **Templates galore:** Feeling uninspired? Don't sweat it! [Notion](https://notion.so/) has a library full of pre-built templates for things like project management, meeting agendas, habit trackers, and more. Plus, you can create custom templates to fit your specific needs.
-- **Got your phone? You've got [Notion](https://notion.so/):** [Notion](https://notion.so/) has mobile apps for iPhone and Android, so you can access and edit your info on the go. Whether you're jotting down ideas at a coffee shop or checking your to-do list on the train, [Notion](https://notion.so/) is always there for you.
+        if discriminant >= 0:
+            x1 = (-b_coeff + discriminant**0.5) / (2 * a)
+            y1 = m * x1 + b
+            M = np.array([x1, y1, 0])
+            
+            point_M = Dot(M, color=WHITE, radius=R/40).set_z_index(3)
+            label_M = MathTex("M", font_size=16*R).next_to(point_M, RIGHT + UP).set_z_index(3)
 
-That's not all! Here are some other cool features that make [Notion](https://notion.so/) a powerhouse:
+        line_AM = Line(A, M, color=WHITE)
+        yd = (x1**2 + y1**2)/y1
+        D = np.array([0, yd, 0])
+        point_D = Dot(D, color=WHITE, radius=R/40).set_z_index(3)
+        label_D = MathTex("D", font_size=16*R).next_to(point_D, UP).set_z_index(3)
+        line_OD = Line(O, D, color=WHITE)
+        line_MD = Line(M, D, color=WHITE)
 
-- **Database dive:** Create databases to manage all sorts of information, like contacts, book collections, or movie reviews. Think of it as a supercharged spreadsheet that lets you connect things.
-- **See it to believe it:** Visualize your workflow and track project progress with Kanban boards. These boards are like digital sticky notes that help you move tasks through different stages.
-- **Clip, clip, hooray!** Did you find a great article online? Use the [Notion](https://notion.so/) web clipper to save it directly into your workspace for later reference. No more losing track of interesting reads in the abyss of your browser history.
-- **Play nice with others:** [Notion](https://notion.so/) integrates with a bunch of other apps you might already use, like Google Drive, Slack, and Evernote. So you can keep all your information flowing smoothly between different tools.
+        yk = R*y1/(R - x1)
+        K = np.array([0, yk, 0])
+
+        group = VGroup(
+            semicircle, diameter, radius_OC,
+            *point_objects.values(), point_M, point_D,
+            *labels.values(), label_M, label_D,
+            line_AM, line_OD, line_MD
+        )
+
+        # Animation sequence
+        self.play(Create(diameter), Write(point_objects['A']), Write(labels['A']), run_time=0.75)
+        self.play(Write(point_objects['B']), Write(labels['B']))
+        self.play(Write(point_objects['O']), Write(labels['O']))
+        self.play(Create(semicircle))
+        self.play(Create(radius_OC))
+        self.play(Write(point_objects['C']), Write(labels['C']))
+        self.play(Write(point_objects['E']), Write(labels['E']))
+        self.wait(0.5)
+        
+        self.play(
+            labels['E'].animate.shift(RIGHT*R/3 + DOWN*R/18),
+            Create(line_AM),
+            run_time=1
+        )
+        self.play(Create(point_M), Write(label_M))
+        self.wait(0.5)
+        self.play(
+            Create(line_MD),
+            Create(line_OD),
+            labels['C'].animate.shift(LEFT*R/6 + DOWN*R/9),
+            run_time=1
+        )
+        self.play(Write(point_D), Write(label_D))
+
+        self.play(group.animate.shift(DOWN * const), run_time=1)
+        
+        B_new = B + DOWN*const
+        O_new = O + DOWN*const
+        K = K + DOWN*const
+
+        point_K = Dot(K, color=WHITE, radius=R/40).set_z_index(3)
+        label_K = MathTex("K", font_size=16*R).next_to(point_K, UP).set_z_index(3)
+        line_BK = Line(B_new, K, color=WHITE)
+        line_OK = Line(O_new, K, color=WHITE)
+        
+        self.play(
+            Create(line_BK),
+            Create(line_OK),
+            label_D.animate.shift(RIGHT*R/11 + DOWN*R/17),
+            run_time=1
+        )
+        self.play(Write(point_K), Write(label_K))
+        self.wait(5)
