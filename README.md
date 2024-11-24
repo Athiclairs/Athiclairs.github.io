@@ -9,7 +9,7 @@ Welcome to my GitHub page! This page is a showcase of my projects and skills.
 Here are some examples of my code:
 
 ### A Code To Create An Animation Geometry Drawing Video
-```
+```python
 from manim import *
 
 class Geometry(Scene):
