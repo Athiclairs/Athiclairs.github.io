@@ -122,7 +122,7 @@ class Geometry(Scene):
         self.play(Write(point_K), Write(label_K))
         self.wait(5)
 ```
-## My Video Example
+## Result
 
 <video width="600" controls>
   <source src="Geometry.mp4" type="video/mp4">
