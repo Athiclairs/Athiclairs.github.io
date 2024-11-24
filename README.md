@@ -123,7 +123,7 @@ class Geometry(Scene):
         self.wait(5)
 ```
 ## Result
-<video width="975" controls>
+<video width="980" controls>
   <source src="Geometry.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
