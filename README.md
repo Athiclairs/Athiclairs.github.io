@@ -123,12 +123,12 @@ class Geometry(Scene):
         self.wait(5)
 ```
 ## Result
-<video width="980" controls>
+<video width="984" controls>
   <source src="Geometry.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 <iframe width="984" height="369" 
-        src="https://www.youtube.com/watch?v=xfniXj9Ovjg" 
+        src="https://youtu.be/xfniXj9Ovjg" 
         frameborder="0" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen>
