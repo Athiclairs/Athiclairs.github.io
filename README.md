@@ -8,7 +8,7 @@ Welcome to my GitHub page! This page is a showcase of my projects and skills.
 
 Here are some examples of my code:
 
-### Example Code 1: Hello World in Python
+### A Code To Create An Animation Geometry Drawing Video
 ```
 from manim import *
 
