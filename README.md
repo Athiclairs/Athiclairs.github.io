@@ -1,6 +1,6 @@
 # My GitHub Page
 
-Welcome to my GitHub page! This page is a showcase of my projects and skills.
+Welcome to my GitHub page! This page is a showcase of my shitty projects and skills.
 
 ---
 
