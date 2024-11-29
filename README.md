@@ -11,6 +11,22 @@ Here are some examples of my code:
 ### A Code To Create An Animation Geometry Drawing Video
 ```python
 from manim import *
+import numpy as np
+
+def circumcenter(A, B, C):
+    ax, ay, _ = A
+    bx, by, _ = B
+    cx, cy, _ = C
+
+    d = 2 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
+    ux = ((ax * ax + ay * ay) * (by - cy) + (bx * bx + by * by) * (cy - ay) + (cx * cx + cy * cy) * (ay - by)) / d
+    uy = ((ax * ax + ay * ay) * (cx - bx) + (bx * bx + by * by) * (ax - cx) + (cx * cx + cy * cy) * (bx - ax)) / d
+
+    return np.array([ux, uy, 0])
+
+def radius(O, A):
+    return np.linalg.norm(O - A)
+
 
 class Geometry(Scene):
     def construct(self):
@@ -22,7 +38,7 @@ class Geometry(Scene):
         C = UP * R
         E = UP * (R/3**0.5)
 
-        semicircle = Arc(radius=R, start_angle=PI, angle=-PI, color=BLUE)
+        semicircle = Arc(radius=R, start_angle=PI, angle=-PI, color=TEAL)
         diameter = Line(A, B, color=WHITE)
         radius_OC = Line(O, C, color=WHITE)
 
@@ -69,6 +85,7 @@ class Geometry(Scene):
 
         yk = R*y1/(R - x1)
         K = np.array([0, yk, 0])
+        P = circumcenter(K, D, M)
 
         group = VGroup(
             semicircle, diameter, radius_OC,
@@ -77,7 +94,6 @@ class Geometry(Scene):
             line_AM, line_OD, line_MD
         )
 
-        # Animation sequence
         self.play(Create(diameter), Write(point_objects['A']), Write(labels['A']), run_time=0.75)
         self.play(Write(point_objects['B']), Write(labels['B']))
         self.play(Write(point_objects['O']), Write(labels['O']))
@@ -88,7 +104,7 @@ class Geometry(Scene):
         self.wait(0.5)
         
         self.play(
-            labels['E'].animate.shift(RIGHT*R/3 + DOWN*R/18),
+            labels['E'].animate.shift(UP*R/24),
             Create(line_AM),
             run_time=1
         )
@@ -97,7 +113,7 @@ class Geometry(Scene):
         self.play(
             Create(line_MD),
             Create(line_OD),
-            labels['C'].animate.shift(LEFT*R/6 + DOWN*R/9),
+            labels['C'].animate.shift(LEFT*R/8 + DOWN*R/12),
             run_time=1
         )
         self.play(Write(point_D), Write(label_D))
@@ -116,10 +132,36 @@ class Geometry(Scene):
         self.play(
             Create(line_BK),
             Create(line_OK),
-            label_D.animate.shift(RIGHT*R/11 + DOWN*R/17),
+            label_D.animate.shift(RIGHT*R/9 + DOWN*R/12),
             run_time=1
         )
-        self.play(Write(point_K), Write(label_K))
+        C += DOWN*const
+        M += DOWN*const
+        E += DOWN*const
+        I = circumcenter(C, M, E)
+        I_R = radius(I, E)
+        Cir_CME = Circle(radius=I_R, color=GREEN).move_to(I)
+        E += DOWN*const
+        L = circumcenter(O, B, E)
+        L_R = ((R**2 + (R/3**0.5)**2)**0.5)/2
+        Cir_OBE = Circle(radius=L_R, color=RED).move_to(L)
+
+        self.play(Write(point_K), Write(label_K), Create(Line(C, M, color=WHITE)))
+        
+        D += DOWN*const
+        M += DOWN*const
+        P += DOWN*const
+        P_R = R/3**0.5
+        Cir_DMK = Circle(radius=P_R, color=YELLOW).move_to(P)
+        
+        self.play(Create(Cir_CME))
+        self.play(Create(Cir_OBE))
+        self.play(
+            Create(Cir_DMK),
+            label_M.animate.shift(LEFT*R/15),
+            run_time=1
+        )
+        self.play(Create(Circle(radius=R, color=BLUE_E).move_to(M+UP*const)))
         self.wait(5)
 ```
 ## Result
