@@ -170,6 +170,7 @@ class Geometry(Scene):
   <source src="Geometry.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
 ## Wiggling Graph
 [Click Here To Download The Code](Wiggling.py)
 ```python
