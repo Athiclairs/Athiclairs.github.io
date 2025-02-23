@@ -1,6 +1,10 @@
 ---
+layout: post
+title: "Công thức toán trên GitHub"
 usemathjax: true
 ---
+
+$$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
 # My GitHub Page
 
