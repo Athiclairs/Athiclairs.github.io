@@ -1,9 +1,14 @@
+---
+usemathjax: true
+---
+
 # My GitHub Page
 
 Welcome to my GitHub page! This page is a showcase of my shitty projects and skills.
 
 ---
-
+## Math 
+This is an expression $\sum\limits_{i=1}^n i^2$
 ## Code Section
 
 Here are some examples of my code:
