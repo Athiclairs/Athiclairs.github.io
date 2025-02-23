@@ -3,7 +3,7 @@
 Welcome to my GitHub page! This page is a showcase of my shitty projects and skills.
 
 ---
-\sum\limits_{i=1}^n 
+
 ## Code Section
 
 Here are some examples of my code:
