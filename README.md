@@ -9,166 +9,145 @@ Welcome to my GitHub page! This page is a showcase of my shitty projects and ski
 
 Here are some examples of my code:
 
-### A Code To Create An Animation Geometry Drawing Video
-[Click Here To Download The Code](Geometry.py)
+## APMO Problem
 ```python
 from manim import *
+from math import sqrt
+
+def tangent_line(circle, point, length=100):
+    center = circle.get_center()
+    direction = rotate_vector(point - center, 90 * DEGREES)
+    direction = normalize(direction)
+    return Line(point - direction * length / 2, point + direction * length / 2)
+
+from sympy import symbols, Eq, solve
 import numpy as np
 
-def circumcenter(A, B, C):
-    ax, ay, _ = A
-    bx, by, _ = B
-    cx, cy, _ = C
+def circle_line_intersections(center, radius, P, Q):
+    
+    a, b = center[:2]
+    
+    dx, dy = Q[:2] - P[:2]
+    
+    t = symbols('t')
+    xt = P[0] + t * dx
+    yt = P[1] + t * dy
 
-    d = 2 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
-    ux = ((ax * ax + ay * ay) * (by - cy) + (bx * bx + by * by) * (cy - ay) + (cx * cx + cy * cy) * (ay - by)) / d
-    uy = ((ax * ax + ay * ay) * (cx - bx) + (bx * bx + by * by) * (ax - cx) + (cx * cx + cy * cy) * (bx - ax)) / d
+    eq = Eq((xt - a)**2 + (yt - b)**2, radius**2)
+    sol_t = solve(eq, t)
 
-    return np.array([ux, uy, 0])
+    intersections = []
+    for sol in sol_t:
+        try:
+            x_val = float(xt.subs(t, sol))
+            y_val = float(yt.subs(t, sol))
+            intersections.append(np.array([x_val, y_val, 0]))
+        except:
+            continue  
 
-def radius(O, A):
-    return np.linalg.norm(O - A)
+    return intersections
 
-
-class Geometry(Scene):
+class APMO(Scene):
     def construct(self):
-        const = 2.5
-        R = 2.5
-        A = LEFT * R
-        B = RIGHT * R
-        O = ORIGIN
-        C = UP * R
-        E = UP * (R/3**0.5)
-
-        semicircle = Arc(radius=R, start_angle=PI, angle=-PI, color=TEAL)
-        diameter = Line(A, B, color=WHITE)
-        radius_OC = Line(O, C, color=WHITE)
-
-        points = {
-            'A': A, 'B': B, 'O': O, 'C': C, 'E': E
-        }
-        point_objects = {
-            key: Dot(value, color=WHITE, radius=R/40).set_z_index(3)
-            for key, value in points.items()
-        }
-
-        labels = {
-            key: MathTex(key, font_size=16*R).next_to(point_objects[key], 
-                        UP if key in ['C', 'D'] else
-                        DOWN if key == 'O' else
-                        LEFT if key in ['A', 'E'] else RIGHT
-                        ).set_z_index(3)
-            for key in points.keys()
-        }
-
-        m = (E[1] - A[1]) / (E[0] - A[0])
-        b = A[1] - m * A[0]
+        Radius = 2
+        a = 1.575/2.5*Radius
+        b = 2.28/2.5*Radius
+        height = 1
         
-        a = 1 + m**2
-        b_coeff = 2 * m * b
-        c = b**2 - R**2
-        discriminant = b_coeff**2 - 4 * a * c
+        A = np.array([-a, sqrt(Radius*Radius - a*a) + height, 0])
+        B = np.array([-b, -sqrt(Radius*Radius - b*b) + height, 0])
+        D = np.array([b, -sqrt(Radius*Radius - b*b) + height, 0])
+        circle = Circle.from_three_points(A, B, D, color=TEAL)
+        tg_B = tangent_line(circle, B, length=100*Radius).get_start_and_end()
+        tg_D = tangent_line(circle, D, length=100*Radius).get_start_and_end()
+        P = line_intersection(tg_B, tg_D)
+        C = circle_line_intersections(circle.get_center(), Radius, A, P)[1]
+        tg_C = tangent_line(circle, C, length=100*Radius).get_start_and_end()
+        U = line_intersection((A, C), (B, D))
+        V = line_intersection(tg_C, (A, B))
+        Q = line_intersection(tg_C, (P, D))
+        R = line_intersection(tg_C, (A, D))
+        T = line_intersection(tg_C, (B, D))
+        E = line_intersection((A, Q), (B, R))
 
-        if discriminant >= 0:
-            x1 = (-b_coeff + discriminant**0.5) / (2 * a)
-            y1 = m * x1 + b
-            M = np.array([x1, y1, 0])
-            
-            point_M = Dot(M, color=WHITE, radius=R/40).set_z_index(3)
-            label_M = MathTex("M", font_size=16*R).next_to(point_M, RIGHT + UP).set_z_index(3)
+        Point_A = Dot(A, color=WHITE, radius=Radius/50)
+        Point_B = Dot(B, color=WHITE, radius=Radius/50)
+        Point_C = Dot(C, color=WHITE, radius=Radius/50)
+        Point_D = Dot(D, color=WHITE, radius=Radius/50)
+        Point_P = Dot(P, color=WHITE, radius=Radius/50)
+        Point_R = Dot(R, color=WHITE, radius=Radius/50)
+        Point_T = Dot(T, color=WHITE, radius=Radius/50)
+        Point_U = Dot(U, color=WHITE, radius=Radius/50)
+        Point_V = Dot(V, color=WHITE, radius=Radius/50)
+        Point_Q = Dot(Q, color=WHITE, radius=Radius/50)
+        Point_E = Dot(E, color=WHITE, radius=Radius/50)
+        Label_A = MathTex("A", color=WHITE).next_to(Point_A, UP)
+        Label_B = MathTex("B", color=WHITE).next_to(Point_B, UP*0.2 + LEFT*0.775)
+        Label_C = MathTex("C", color=WHITE).next_to(Point_C, DOWN*0.1 + LEFT*0.15)
+        Label_D = MathTex("D", color=WHITE).next_to(Point_D, RIGHT)
+        Label_P = MathTex("P", color=WHITE).next_to(Point_P, UP*0.25 + LEFT)
+        Label_R = MathTex("R", color=WHITE).next_to(Point_R, RIGHT)
+        Label_T = MathTex("T", color=WHITE).next_to(Point_T, LEFT)
+        Label_U = MathTex("U", color=WHITE).next_to(Point_U, RIGHT/2 + DOWN/3)
+        Label_V = MathTex("V", color=WHITE).next_to(Point_V, DOWN)
+        Label_Q = MathTex("Q", color=WHITE).next_to(Point_Q, DOWN + RIGHT/10**2)
+        Label_E = MathTex("E", color=WHITE).next_to(Point_E,  UP*0.7 + RIGHT/10**50)
 
-        line_AM = Line(A, M, color=WHITE)
-        yd = (x1**2 + y1**2)/y1
-        D = np.array([0, yd, 0])
-        point_D = Dot(D, color=WHITE, radius=R/40).set_z_index(3)
-        label_D = MathTex("D", font_size=16*R).next_to(point_D, UP).set_z_index(3)
-        line_OD = Line(O, D, color=WHITE)
-        line_MD = Line(M, D, color=WHITE)
+        Quadrilateral_ABCD = Polygon(A, B, C, D, color=WHITE)
+        
+        Line_AP = Line(A, P, color=WHITE)
+        Line_AR = Line(A, R, color=WHITE)
+        Line_CR = Line(C, R, color=WHITE)
+        Line_BP = Line(B, P, color=WHITE)
+        Line_DP = Line(D, P, color=WHITE)
+        Line_CT = Line(C, T, color=WHITE)
+        Line_DT = Line(D, T, color=WHITE)
+        Line_TA = Line(T, A, color=WHITE)
+        Line_AQ = Line(A, Q, color=WHITE)
+        Line_BR = Line(B, R, color=WHITE)
+        Line_BV = Line(B, V, color=WHITE)
 
-        yk = R*y1/(R - x1)
-        K = np.array([0, yk, 0])
-        P = circumcenter(K, D, M)
-
-        group = VGroup(
-            semicircle, diameter, radius_OC,
-            *point_objects.values(), point_M, point_D,
-            *labels.values(), label_M, label_D,
-            line_AM, line_OD, line_MD
+        self.play(
+            AnimationGroup(
+                Create(circle),
+                AnimationGroup(
+                Create(Quadrilateral_ABCD),
+                Write(Point_A), Write(Label_A),
+                Write(Point_B), Write(Label_B),
+                Write(Point_C), Write(Label_C),
+                Write(Point_D), Write(Label_D),
+                lag_ratio=0.065
+                ),
+                lag_ratio=0.25
+        ))
+        self.play(Create(Line_BP),Create(Line_DP))
+        self.play(Create(Line_AP))
+        self.play(Write(Point_P), Write(Label_P))
+        self.play(
+            AnimationGroup(
+                Create(Line_CR),
+                AnimationGroup(Write(Point_Q), Write(Label_Q),Create(Line_AR)),
+                Write(Point_R), Write(Label_R),
+                lag_ratio=0.5
+            )
         )
-
-        self.play(Create(diameter), Write(point_objects['A']), Write(labels['A']), run_time=0.75)
-        self.play(Write(point_objects['B']), Write(labels['B']))
-        self.play(Write(point_objects['O']), Write(labels['O']))
-        self.play(Create(semicircle))
-        self.play(Create(radius_OC))
-        self.play(Write(point_objects['C']), Write(labels['C']))
-        self.play(Write(point_objects['E']), Write(labels['E']))
+        self.play(Create(Line_AQ), Write(Point_E), Write(Label_E))
+        self.wait(0.75)
+        self.play(Create(Line_BR))
+        self.wait(1.5)
+        self.play(ReplacementTransform(Line_BR, Point_R))
+        self.wait(3)
+        self.play(Create(Line_CT), Create(Line_DT), Write(Point_T), Write(Label_T))
         self.wait(0.5)
-        
-        self.play(
-            labels['E'].animate.shift(UP*R/24),
-            Create(line_AM),
-            run_time=1
-        )
-        self.play(Create(point_M), Write(label_M))
-        self.wait(0.5)
-        self.play(
-            Create(line_MD),
-            Create(line_OD),
-            labels['C'].animate.shift(LEFT*R/8 + DOWN*R/12),
-            run_time=1
-        )
-        self.play(Write(point_D), Write(label_D))
-
-        self.play(group.animate.shift(DOWN * const), run_time=1)
-        
-        B_new = B + DOWN*const
-        O_new = O + DOWN*const
-        K = K + DOWN*const
-
-        point_K = Dot(K, color=WHITE, radius=R/40).set_z_index(3)
-        label_K = MathTex("K", font_size=16*R).next_to(point_K, UP).set_z_index(3)
-        line_BK = Line(B_new, K, color=WHITE)
-        line_OK = Line(O_new, K, color=WHITE)
-        
-        self.play(
-            Create(line_BK),
-            Create(line_OK),
-            label_D.animate.shift(RIGHT*R/9 + DOWN*R/12),
-            run_time=1
-        )
-        C += DOWN*const
-        M += DOWN*const
-        E += DOWN*const
-        I = circumcenter(C, M, E)
-        I_R = radius(I, E)
-        Cir_CME = Circle(radius=I_R, color=GREEN).move_to(I)
-        E += DOWN*const
-        L = circumcenter(O, B, E)
-        L_R = ((R**2 + (R/3**0.5)**2)**0.5)/2
-        Cir_OBE = Circle(radius=L_R, color=RED).move_to(L)
-
-        self.play(Write(point_K), Write(label_K), Create(Line(C, M, color=WHITE)))
-        
-        D += DOWN*const
-        M += DOWN*const
-        P += DOWN*const
-        P_R = R/3**0.5
-        Cir_DMK = Circle(radius=P_R, color=YELLOW).move_to(P)
-        
-        self.play(Create(Cir_CME))
-        self.play(Create(Cir_OBE))
-        self.play(
-            Create(Cir_DMK),
-            label_M.animate.shift(LEFT*R/15),
-            run_time=1
-        )
-        self.play(Create(Circle(radius=R, color=BLUE_E).move_to(M+UP*const)))
-        self.wait(5)
+        self.play(Create(Line_TA))
+        self.wait(1.5)
+        self.play(Write(Point_U), Write(Label_U))
+        self.play(Create(Line_BV), Write(Point_V), Write(Label_V))
+        self.wait(3)
 ```
 ### Result
 <video width="982" controls>
-  <source src="Geometry.mp4" type="video/mp4">
+  <source src="APMO.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
