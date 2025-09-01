@@ -10,6 +10,7 @@ Welcome to my GitHub page! This page is a showcase of my shitty projects and ski
 Here are some examples of my code:
 
 ## APMO Problem
+[Click Here To Download The Code](APMO.py)
 ```python
 from manim import *
 from math import sqrt
