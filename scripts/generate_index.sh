@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Base URL for Pages — change to your custom domain if needed
 BASE_URL="https://athiclairs.github.io"
 
 mkdir -p site site/thumbs
 cd site || exit 0
 
-# Remove any leftover aux files (from local runs)
 rm -f -- *.aux *.log *.out *.toc *.synctex.gz *.gz *.bbl *.blg *.nav *.snm || true
 : > .nojekyll
 
@@ -60,7 +58,6 @@ cat > index.html <<'HTML'
     <ul class="pdf-list">
 HTML
 
-# List PDF files from the pdfs/ subfolder
 if find pdfs/ -maxdepth 1 -type f -name '*.pdf' | grep -q '.' 2>/dev/null; then
   find pdfs/ -maxdepth 1 -type f -name '*.pdf' -printf '%f\n' | sort | while IFS= read -r f; do
     esc=$(printf '%s' "$f" | sed 's/&/\&amp;/g;s/</\&lt;/g;s/>/\&gt;/g')
