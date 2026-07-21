@@ -117,8 +117,8 @@ Như vậy khẳng định được chứng minh
 
 Cố định $z,y \in \mathbb{R}^+$ với $z < y$ khi đó $z = \min\left\{z,y\right\} > 0$. Với $n \in \mathbb{Z}^+$, đặt $z_k = z + \frac{k}{n}(y-z)$ với $k = 0,1,\dots,n$, khi đó $z_0 = z$, $z_n = y$, và $z_k \ge z$ với mọi $k$. Theo Khẳng định 3, $f(z_k) \ge z_k \ge z$, do đó áp dụng Khẳng định 4 cho các điểm liên tiếp cho ta
 $$\lvert g(z_{k-1}) - g(z_{k}) \rvert \le \frac{(z_{k}-z_{k-1})^2}{4m} = \frac{(y-z)^2}{4zn^2}$$
-Theo đó với $k=0,\dots,n-1$ thì:
-$$0\le \lvert g(z)-g(y)\rvert = \sum_{k=0}^{n-1} \lvert g(z_{k-1})-g(z_{k})\rvert \le n \cdot \frac{(y-z)^2}{4zn^2} = \frac{(y-z)^2}{4zn}$$
+Theo đó với $k=1,\dots,n$ thì:
+$$0\le \lvert g(z)-g(y)\rvert = \sum_{k=1}^{n} \lvert g(z_{k-1})-g(z_{k})\rvert \le n \cdot \frac{(y-z)^2}{4zn^2} = \frac{(y-z)^2}{4zn}$$
 Từ đây cho $n \to +\infty$ suy ra $g(z) = g(y)$. Vì $z,y$ bất kỳ, $g$ là hàm hằng trên $\mathbb{R}^+$.
 
 \textbf{\textcolor{myteal}{Kết luận:}} Theo Khẳng định 5, $g(x) = f(x) - x \equiv c$ với một hằng số $c$ nào đó, và theo Khẳng định 3, $c = g(x) \ge 0$ với mọi $x$. Như vậy mọi nghiệm đều có dạng $f(x) = x+c$ với $c \ge 0$, và theo Khẳng định 1, mọi hàm như vậy thực sự là nghiệm. Do đó $$f(x) = x + c, \ \text{với hằng số tùy ý } c \ge 0$$ là tập hợp tất cả các nghiệm.
