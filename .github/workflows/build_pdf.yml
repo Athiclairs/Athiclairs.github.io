@@ -1,0 +1,84 @@
+name: Build PDFs and Publish
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - backup-before-pdfs-2026-07-19
+      - main
+      - master
+    paths:
+      - '**/*.tex'
+      - 'scripts/**'
+      - '.github/workflows/**'
+  workflow_dispatch: {}
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Build PDFs inside TeX container and generate thumbnails
+        run: |
+          set -euo pipefail
+          docker run --rm -e HOST_UID="$(id -u)" -e HOST_GID="$(id -g)" -v "${{ github.workspace }}:/work" -w /work blang/latex:ubuntu bash -lc '
+            set -euo pipefail
+            mkdir -p site site/thumbs site/pdfs
+
+            # --- Compile with latexmk (handles BibTeX, cross-refs, multiple passes) ---
+            find . -type f -name "*.tex" -not -path "./.github/*" -not -path "./site/*" -print0 | while IFS= read -r -d "" f; do
+              base="$(basename "${f%.*}")"
+              echo "Building: $f -> site/pdfs/${base}.pdf"
+              latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=site/pdfs "$f" || { echo "latexmk failed on $f"; exit 1; }
+              # Remove auxiliary files from site/pdfs/ to keep deployment clean
+              latexmk -c -outdir=site/pdfs "$f" 2>/dev/null || true
+            done
+
+            # --- Install poppler-utils for thumbnail generation ---
+            apt-get update -qq
+            apt-get install -y -qq poppler-utils || true
+
+            # --- Generate thumbnail PNG (first page) for each PDF at 200 DPI ---
+            for pdf in site/pdfs/*.pdf; do
+              [ -f "$pdf" ] || continue
+              base="$(basename "$pdf" .pdf)"
+              thumb="site/thumbs/${base}.png"
+              pdftoppm -singlefile -png -r 200 "$pdf" "site/thumbs/${base}" >/dev/null 2>&1 || true
+              if [ -f "$thumb" ]; then
+                echo "Thumbnail created: $thumb"
+              else
+                echo "Thumbnail creation failed for $pdf"
+              fi
+            done
+
+            # --- Fix ownership so host runner can read/remove files ---
+            if [ -n "${HOST_UID:-}" ] && [ -n "${HOST_GID:-}" ]; then
+              chown -R "${HOST_UID}:${HOST_GID}" site || true
+            fi
+          '
+
+      - name: Copy icon folder to site
+        run: |
+          if [ -d icon ]; then
+            cp -r icon site/
+          fi
+
+      - name: Prepare site (generate index)
+        run: |
+          chmod +x ./scripts/generate_index.sh || true
+          ./scripts/generate_index.sh || true
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          keep_files: false
