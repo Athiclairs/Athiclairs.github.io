@@ -6,7 +6,6 @@ permissions:
 on:
   push:
     branches:
-      - backup-before-pdfs-2026-07-19
       - main
       - master
     paths:
