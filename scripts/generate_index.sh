@@ -26,7 +26,7 @@ cat > index.html <<'HTML'
     --preview-desktop: 70vw;
     --preview-mobile: 90vw;
   }
-  body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:64rem;margin:2rem auto;padding:0 1rem;line-height:1.45}
+  body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:64rem;margin:2rem auto;padding:0 1rem;line-height:1.45;background:#0d1117}
   header{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem}
   .header-logo{height:2.5rem;width:auto}
   h1{margin:0;font-size:1.6rem}
