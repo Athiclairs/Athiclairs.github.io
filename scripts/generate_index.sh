@@ -44,7 +44,7 @@ cat > index.html <<'HTML'
     display:block;
     margin-top:.5rem;
   }
-  .preview-wrapper{margin:0 auto;box-sizing:border-box;padding:0px;border:1px solid #ddd;background:#fff;width:var(--preview-desktop)}
+  .preview-wrapper{margin:0 auto;box-sizing:border-box;padding:0px;border:0px solid #ddd;background:#fff;width:var(--preview-desktop)}
   @media (max-width:700px){ .preview-wrapper{width:var(--preview-mobile)} }
   .preview-thumb{width:100%;height:auto;display:block;border:1px solid #eee;background:#fafafa}
   .no-thumb{font-size:.95rem;color:#6b7280;padding:.5rem}
