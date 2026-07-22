@@ -36,7 +36,7 @@ jobs:
               base="$(basename "${f%.*}")"
               echo "Building: $f -> site/pdfs/${base}.pdf"
               latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=site/pdfs "$f" || { echo "latexmk failed on $f"; exit 1; }
-              # Remove auxiliary files from site/pdfs/ to keep deployment clean
+              # Minecraft
               latexmk -c -outdir=site/pdfs "$f" 2>/dev/null || true
             done
             
